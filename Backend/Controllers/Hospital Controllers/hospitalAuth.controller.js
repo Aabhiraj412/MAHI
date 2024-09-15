@@ -55,6 +55,7 @@ export const hospitalRegister = async (req, res) => {
             registryno,
             password: hashpass,
             beds_in_use: [],
+            bed_in_use: [],  //add bed_in_use to hospital
             patients: [],
             total_beds_available,
             helpline,
@@ -62,7 +63,8 @@ export const hospitalRegister = async (req, res) => {
             address,
             city,
             state,
-            OPDs:[]
+            OPDs:[],
+            OPD_names: []
         });
 
         if(newHospital){
@@ -77,8 +79,10 @@ export const hospitalRegister = async (req, res) => {
                 registryno: newHospital.registryno,
                 total_beds_available: newHospital.total_beds_available,
                 beds_in_use: newHospital.beds_in_use,
+                bed_in_use: newHospital.bed_in_use_count,
                 patients: newHospital.patients,
                 opds: newHospital.OPDs,
+                opd_names: newHospital.OPD_names,  //add opd_names to hospital
                 helpline: newHospital.helpline,
                 address: newHospital.address,
                 city: newHospital.city,
@@ -131,8 +135,10 @@ export const hospitalLogin = async (req, res) => {
             registryno: hospital.registryno,
             total_beds_available: hospital.total_beds_available,
             beds_in_use: hospital.beds_in_use,
+            bed_in_use: hospital.bed_in_use,
             patients: hospital.patients,
             opds: hospital.OPDs,
+            OPD_names: hospital.OPD_names,
             helpline: hospital.helpline,
             address: hospital.address,
             doctor: hospital.doctors,
@@ -175,8 +181,10 @@ export const hospitalProfile = async (req,res) => {
             registryno: hospital.registryno,
             total_beds_available: hospital.total_beds_available,
             beds_in_use: hospital.beds_in_use,
+            bed_in_use: hospital.bed_in_use,
             patients: hospital.patients,
             opds: hospital.OPDs,
+            OPD_names:hospital.OPD_names,
             helpline: hospital.helpline,
             address: hospital.address,
             city: hospital.city,
@@ -206,8 +214,10 @@ export const hospitalProfileDetails = async (req,res) => {
             registryno: hospital.registryno,
             total_beds_available: hospital.total_beds_available,
             beds_in_use: hospital.beds_in_use,
+            bed_in_use: hospital.bed_in_use,
             patients: hospital.patients,
             opds: hospital.OPDs,
+            OPD_names: hospital.OPD_names,
             helpline: hospital.helpline,
             address: hospital.address,
             city: hospital.city,

@@ -69,7 +69,9 @@ export const doctorRegister = async (req, res) => {
             hospital: null,
             password: hashedPassword,
             city,
-            state
+            state,
+            OPD: null,
+            // token: generateDocToken(newDoctor._id, res),  // generate JWT token for doctor login
         });
 
         if(newDoctor){
@@ -94,7 +96,8 @@ export const doctorRegister = async (req, res) => {
                 qualifications: newDoctor.qualifications,
                 city: newDoctor.city,
                 state: newDoctor.state,
-                token: generateDocToken(newDoctor._id, res),  // generate JWT token for doctor login
+                OPD: newDoctor.OPD,
+                // token: generateDocToken(newDoctor._id, res),  // generate JWT token for doctor login
             });
 
             console.log(`Doctor ${newDoctor.fullname} Registered`);
@@ -152,6 +155,8 @@ export const doctorLogin = async (req, res) => {
             qualifications: user.qualifications,
             city: user.city,
             state: user.state,
+            OPD: user.OPD,
+            // token: generateDocToken(user._id, res),  // generate JWT token for doctor login
             // token: generateDocToken(user._id, res)  // generate JWT token for doctor login
             created_at: user.createdAt,
             updated_at: user.updatedAt

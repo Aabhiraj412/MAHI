@@ -71,7 +71,11 @@ const doctorSchema = new mongoose.Schema({
     state: { 
         type: String, 
         required: true 
-    }
+    },
+    OPD: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'OPDs' 
+    },
 },
     {timestamps:true}
 );

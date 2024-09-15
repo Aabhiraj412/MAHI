@@ -5,6 +5,10 @@ const patientsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Users' 
     },
+    bed_no:{
+        type: Number, 
+        required: true
+    },
     discharge: { 
         type: Date,
         default: null 

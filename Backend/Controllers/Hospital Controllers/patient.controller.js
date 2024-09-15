@@ -4,10 +4,10 @@ import UserModel from "../../Models/user.model.js";
 
 export const admitPatient = async (req, res) => {
     try{
-        const {patientId} = req.body;
+        const {patientId, bed_no} = req.body;
 
-        if(!patientId){
-            return res.status(400).json({message: "Please Enter Patient ID"});
+        if(!patientId || !bed_no){
+            return res.status(400).json({message: "Please Enter All Details"});
         }
 
         const patient = await UserModel.findById({_id: patientId});
@@ -26,8 +26,13 @@ export const admitPatient = async (req, res) => {
             return res.status(400).json({message: "General Ward is Full"});
         }
 
+        if(hospital.bed_in_use.includes(bed_no)){
+            return res.status(400).json({message: "This Bed is Already Occupied"});
+        }
+
         const newPatient = new PatientsModel({
-            patient: patient._id
+            patient: patient._id,
+            bed_no: bed_no
         });
         
         if(newPatient){
@@ -36,12 +41,13 @@ export const admitPatient = async (req, res) => {
             
             hospital.beds_in_use.push(newPatient._id);
             hospital.patients.push(newPatient._id);
+            hospital.bed_in_use.push(newPatient.bed_no);
 
             await HospitalModel.updateOne({_id: hospital._id}, hospital);
 
             await UserModel.updateOne({_id: patient._id}, {status: "Admitted"});
 
-            res.status(200).json({message: "Patient Admitted Successfully"});
+            res.status(200).json({message: "Patient Admitted Successfully", patientId: newPatient._id});
         }
 
     }
@@ -76,6 +82,12 @@ export const dischargePatient = async (req, res) => {
 
         if(index > -1){
             hospital.beds_in_use.splice(index, 1);
+        }
+        
+        const indexOfbed = hospital.bed_in_use.indexOf(patient.bed_no);
+
+        if(indexOfbed > -1){
+            hospital.bed_in_use.splice(indexOfbed, 1);
         }
 
         await PatientsModel.updateOne({_id: patientId}, {discharge: new Date()});

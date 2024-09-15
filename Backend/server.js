@@ -11,6 +11,8 @@ import connectDB from './Database/connect.js';
 import authRouter from './Routers/auth.routes.js';
 import profileRouter from './Routers/profile.routes.js';
 import hospitalRouter from './Routers/hospital.routes.js';
+import userRoute from './Routers/user.routes.js';
+import doctorRoute from './Routers/doctor.routes.js';
 
 dotenv.config({path: '../.env'});
 
@@ -34,6 +36,8 @@ app.use('/api/auth',authRouter);
 app.use('/api/profile',profileRouter);
 
 app.use('/api/hospital', hospitalRouter);
+app.use('/api/user/', userRoute);
+app.use('/api/doctor/', doctorRoute);
 // app.get('*',(req,res)=>{
 //     res.send('Invalid Domain');
 // });

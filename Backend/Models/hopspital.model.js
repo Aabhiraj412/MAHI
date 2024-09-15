@@ -23,6 +23,9 @@ const hospitalSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'General_Ward', 
     }],
+    bed_in_use:[{
+        type: Number
+    }],
     patients: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Patients',
@@ -56,6 +59,9 @@ const hospitalSchema = new mongoose.Schema({
     OPDs:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'OPDs', 
+    }],
+    OPD_names: [{
+        type: String, 
     }]
 },
     {timestamps: true}

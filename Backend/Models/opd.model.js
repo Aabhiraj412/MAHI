@@ -5,6 +5,10 @@ const opdSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Users' 
     }],
+    doctors: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Doctors' 
+    }],
     name: { 
         type: String, 
         required: true 
